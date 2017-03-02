@@ -13,7 +13,7 @@ class Company(models.Model):
     telephone_number = models.IntegerField()
     email = models.CharField(max_length=1000)
     currency_symbols = models.CharField(max_length=1000)
-    accounts_with_inventory = models.CharField(max_length=1000)
+    accounts_with_inventory = models.BooleanField()
     financial_year_from = models.DateField()
     books_beginning_from = models.DateField()
     show_amounts_in_millions = models.BooleanField()
