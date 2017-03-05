@@ -53,4 +53,4 @@ class Ledgers(models.Model):
     opening_balance = models.IntegerField(default=0)
     type = models.CharField(max_length=1000, choices=Ltype)
     inventory = models.BooleanField(default=False)
-    date = models.DateField(default=timezone.now)
+    date = models.DateTimeField(default=timezone.now)
