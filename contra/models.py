@@ -23,5 +23,5 @@ class Contra(models.Model):
         self.secondAccount.opening_balance += self.amount
         self.secondAccount.save(force_update=True)
         super(Contra, self).save()
-        activity = Activity(name="Cotra",date=self.date,addedby_id=self.addedBy_id,amount=self.amount)
+        activity = Activity(name="Contra",date=self.date,addedby_id=self.addedBy_id,amount=self.amount)
         activity.save()
