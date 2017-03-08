@@ -5,6 +5,7 @@ from company.models import Company
 from ledgers.models import Ledgers
 from django.utils import timezone
 from Customer.models import Profile
+from activity.models import Activity
 
 
 class Contra(models.Model):
@@ -22,3 +23,5 @@ class Contra(models.Model):
         self.secondAccount.opening_balance += self.amount
         self.secondAccount.save(force_update=True)
         super(Contra, self).save()
+        activity = Activity(name="Cotra",date=self.date,addedby_id=self.addedBy_id,amount=self.amount)
+        activity.save()
