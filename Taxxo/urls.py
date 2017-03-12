@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^ledgers/', include('ledgers.urls')),
     url(r'^payment/', include('payment.urls')),
     url(r'^receipt/', include('receipt.urls')),
+    url(r'^activity/', include('activity.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

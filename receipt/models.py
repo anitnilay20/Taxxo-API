@@ -5,6 +5,7 @@ from company.models import Company
 from ledgers.models import Ledgers
 from Customer.models import Profile
 from django.utils import timezone
+from activity.models import Activity
 
 class Receipt(models.Model):
     company = models.ForeignKey(Company)
@@ -21,3 +22,5 @@ class Receipt(models.Model):
         self.secondAccount.opening_balance += self.amount
         self.secondAccount.save(force_update=True)
         super(Receipt, self).save()
+        activity = Activity(name="Receipt", date=self.date, addedby_id=self.addedBy_id, amount=self.amount)
+        activity.save()

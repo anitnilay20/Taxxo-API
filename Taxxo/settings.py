@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'contra',
     'ledgers',
     'receipt',
-    'corsheaders'
+    'corsheaders',
+    'activity',
 ]
 
 MIDDLEWARE = [
