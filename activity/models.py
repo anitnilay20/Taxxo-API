@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 from Customer.models import Profile
+from company.models import Company
 
 
 class Activity(models.Model):
@@ -9,3 +10,4 @@ class Activity(models.Model):
     date = models.DateTimeField(default=timezone.now)
     added_by = models.ForeignKey(Profile)
     amount = models.IntegerField()
+    company = models.ForeignKey(Company)
