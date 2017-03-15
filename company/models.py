@@ -19,3 +19,5 @@ class Company(models.Model):
     show_amounts_in_millions = models.BooleanField()
     admin = models.ForeignKey(Profile)
 
+    def __str__(self):
+        return self.name

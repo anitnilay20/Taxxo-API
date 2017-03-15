@@ -10,6 +10,8 @@ urlpatterns = [
     url(r'^contra/', include('contra.urls')),
     url(r'^ledgers/', include('ledgers.urls')),
     url(r'^payment/', include('payment.urls')),
+    url(r'^expense/', include('expense.urls')),
+    url(r'^income/', include('income.urls')),
     url(r'^receipt/', include('receipt.urls')),
     url(r'^activity/', include('activity.urls')),
     url(r'^admin/', include(admin.site.urls)),
