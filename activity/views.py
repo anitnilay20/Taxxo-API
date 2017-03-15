@@ -11,7 +11,6 @@ class ActivtyList(APIView):
 
     def get(self, request, format=None):
         company = request.META['HTTP_COMPANY']
-        activity = Activity.objects.filter(company_id=company)
-        activity = Activity.objects.all()
+        activity = Activity.objects.filter(company_id=company).orderBy('date')
         serializer = Activityserializers(activity, many=True)
         return Response(serializer.data)
