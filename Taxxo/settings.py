@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'receipt',
     'corsheaders',
     'activity',
+    'income',
+    'expense',
 ]
 
 MIDDLEWARE = [

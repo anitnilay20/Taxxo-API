@@ -21,6 +21,6 @@ class Receipt(models.Model):
         self.firstAccount.save(force_update=True)
         self.secondAccount.opening_balance += self.amount
         self.secondAccount.save(force_update=True)
-        super(Receipt, self).save()
-        activity = Activity(name="Receipt", date=self.date, addedby_id=self.addedBy_id, amount=self.amount)
+        activity = Activity(name="Receipt", date=self.date, added_by_id=self.addedBy_id, amount=self.amount)
         activity.save()
+        super(Receipt, self).save()

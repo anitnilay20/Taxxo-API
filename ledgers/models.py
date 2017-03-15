@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-
 from django.db import models
 from django.utils import timezone
 from company.models import Company
@@ -54,3 +53,6 @@ class Ledgers(models.Model):
     type = models.CharField(max_length=1000, choices=Ltype)
     inventory = models.BooleanField(default=False)
     date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.name

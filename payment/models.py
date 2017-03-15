@@ -20,6 +20,6 @@ class Payment(models.Model):
         self.firstAccount.save(force_update=True)
         self.secondAccount.opening_balance += self.amount
         self.secondAccount.save(force_update=True)
-        super(Payment, self).save()
-        activity = Activity(name="Payment", date=self.date, addedby_id=self.addedBy_id, amount=self.amount)
+        activity = Activity(name="Payment", date=self.date, added_by_id=self.addedBy_id, amount=self.amount)
         activity.save()
+        super(Payment, self).save()
