@@ -6,6 +6,8 @@ from ledgers.models import Ledgers
 from Customer.models import Profile
 from django.utils import timezone
 from activity.models import Activity
+from trialbalance.models import TrialBalance
+
 
 class Receipt(models.Model):
     company = models.ForeignKey(Company)
@@ -24,3 +26,11 @@ class Receipt(models.Model):
         activity = Activity(name="Receipt", date=self.date, added_by_id=self.addedBy_id, amount=self.amount,company=self.company)
         activity.save()
         super(Receipt, self).save()
+        trialbalance1 = TrialBalance(particular=self.firstAccount.name, creditAmount=self.firstAccount.opening_balance,
+                                     debitAmount=0, company_id=self.company.id, ledger=self.firstAccount)
+
+        trialbalance1.save()
+
+        trialbalance2 = TrialBalance(particular=self.secondAccount.name, debitAmount=self.secondAccount.opening_balance,
+                                     creditAmount=0, company_id=self.company.id, ledger=self.secondAccount)
+        trialbalance2.save()

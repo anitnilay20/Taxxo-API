@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'activity',
     'income',
     'expense',
+    'trialbalance',
 ]
 
 MIDDLEWARE = [
