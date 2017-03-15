@@ -1,11 +1,13 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from company.models import Company
-from ledgers.models import Ledgers
 from django.utils import timezone
+
 from Customer.models import Profile
 from activity.models import Activity
+from company.models import Company
+from ledgers.models import Ledgers
+from trialbalance.models import TrialBalance
 
 
 class Contra(models.Model):
@@ -22,7 +24,15 @@ class Contra(models.Model):
         self.firstAccount.save(force_update=True)
         self.secondAccount.opening_balance += self.amount
         self.secondAccount.save(force_update=True)
-        activity = Activity(name="Contra",date=self.date,added_by_id=self.addedBy_id,amount=self.amount,company=self.company)
+        activity = Activity(name="Contra", date=self.date, added_by_id=self.addedBy_id, amount=self.amount,
+                            company=self.company)
         activity.save()
         super(Contra, self).save()
+        trialbalance1 = TrialBalance(particular=self.firstAccount.name, creditAmount=self.firstAccount.opening_balance,
+                                     debitAmount=0, company_id=self.company.id, ledger=self.firstAccount)
+        trialbalance1.save()
+
+        trialbalance2 = TrialBalance(particular=self.secondAccount.name, debitAmount=self.secondAccount.opening_balance,
+                                     creditAmount=0, company_id=self.company.id, ledger=self.secondAccount)
+        trialbalance2.save()
 

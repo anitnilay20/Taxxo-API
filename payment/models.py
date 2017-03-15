@@ -5,6 +5,8 @@ from ledgers.models import Ledgers
 from Customer.models import Profile
 from django.utils import timezone
 from activity.models import Activity
+from trialbalance.models import TrialBalance
+
 
 class Payment(models.Model):
     company = models.ForeignKey(Company)
@@ -23,3 +25,11 @@ class Payment(models.Model):
         activity = Activity(name="Payment", date=self.date, added_by_id=self.addedBy_id, amount=self.amount,company=self.company)
         activity.save()
         super(Payment, self).save()
+        trialbalance1 = TrialBalance(particular=self.firstAccount.name, creditAmount=self.firstAccount.opening_balance,
+                                     debitAmount=0, company_id=self.company.id, ledger=self.firstAccount)
+
+        trialbalance1.save()
+
+        trialbalance2 = TrialBalance(particular=self.secondAccount.name, debitAmount=self.secondAccount.opening_balance,
+                                     creditAmount=0, company_id=self.company.id, ledger=self.secondAccount)
+        trialbalance2.save()

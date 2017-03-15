@@ -1,6 +1,5 @@
-from django.contrib import admin
 from django.conf.urls import url, include
-import company
+from django.contrib import admin
 
 urlpatterns = [
     url(r'^user/', admin.site.urls),
@@ -14,6 +13,7 @@ urlpatterns = [
     url(r'^income/', include('income.urls')),
     url(r'^receipt/', include('receipt.urls')),
     url(r'^activity/', include('activity.urls')),
+    url(r'^trialbalane/', include('trialbalance.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
