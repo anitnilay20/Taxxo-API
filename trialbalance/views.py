@@ -12,6 +12,6 @@ class TrialBalanceList(APIView):
 
     def get(self, request, format=None):
         company = request.META['HTTP_COMPANY']
-        trialbalance = TrialBalance.objects.filter(company_id=company).order_by('-date')
+        trialbalance = TrialBalance.objects.filter(company_id=company)
         serializer = TrialBalanceSerializers(trialbalance, many=True)
         return Response(serializer.data)
