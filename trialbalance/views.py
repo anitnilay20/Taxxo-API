@@ -31,21 +31,30 @@ class ProfitLoss(APIView):
         expenses = []
         income_data = {}
         expense_data = {}
-
         for i in income:
             if i.secondAccount.name in income_data:
                 income_data[i.secondAccount.name] += i.amount
             else:
                 income_data[i.secondAccount.name] = i.amount
-        incomes.append(income_data)
+        print income_data
+        for key,item in income_data.iteritems():
+            final_income = {}
+            final_income['particular']=key
+            final_income['amount']=item
+            incomes.append(final_income)
 
         for i in expense:
             if i.secondAccount.name in expense_data:
                 expense_data[i.secondAccount.name] += i.amount
             else:
                 expense_data[i.secondAccount.name] = i.amount
-        expenses.append(expense_data)
+
+        for key,item in expense_data.iteritems():
+            final_expense = {}
+            final_expense['particular']=key
+            final_expense['amount']=item
+            expenses.append(final_expense)
         data = dict()
-        data['income'] = incomes
-        data['expense'] = expenses
+        data['income']=incomes
+        data['expense']=expenses
         return JsonResponse(data, safe=False)
