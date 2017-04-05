@@ -57,11 +57,11 @@ class CustomerDetail(APIView):
 
 class CustomerLogin(APIView):
     def post(self, request, format=None):
-        email = request.META['HTTP_EMAIL']
-        password = request.META['HTTP_PASSWORD']
+        email = request.data['email']
+        password = request.data['password']
         try:
-            Customer = Profile.objects.get(email=email,password=password)
-            serializer = UserSerializers(Customer, many=False)
+            customer = Profile.objects.get(email=email, password=password)
+            serializer = UserSerializers(customer, many=False)
             return Response(serializer.data)
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
