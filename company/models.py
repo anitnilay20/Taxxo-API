@@ -17,7 +17,7 @@ class Company(models.Model):
     financial_year_from = models.DateField()
     books_beginning_from = models.DateField()
     show_amounts_in_millions = models.BooleanField()
-    admin = models.ForeignKey(Profile)
+    admin = models.ManyToManyField(Profile)
 
     def __str__(self):
         return self.name
