@@ -12,4 +12,4 @@ class Profile(AbstractUser, PermissionsMixin):
     number = models.IntegerField(blank=True, default=10)
     birth_date = models.DateField(null=True, blank=True)
     is_superuser = models.BooleanField()
-    image = models.ImageField(upload_to=user_directory_path)
+    image = models.ImageField(upload_to=user_directory_path, blank=True)

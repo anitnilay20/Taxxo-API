@@ -12,8 +12,8 @@ class CompanytList(APIView):
     """
 
     def get(self, request, format=None):
-        #admin = request.META['HTTP_ADMIN']
-        company = Company.objects.all()
+        admin = request.META['HTTP_ADMIN']
+        company = Company.objects.filter(admin=admin)
         serializer = Companyserializers(company, many=True)
         return Response(serializer.data)
 
@@ -23,7 +23,7 @@ class CompanytList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    
 
 class CompanyDetail(APIView):
     """
