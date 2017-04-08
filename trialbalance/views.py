@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from expense.models import Expense
 from income.models import Income
 from ledgers.models import Ledgers
+from ledgers.serializers import Ledgersserializers
 from trialbalance.models import TrialBalance
 from trialbalance.serializers import TrialBalanceSerializers
 
@@ -59,17 +60,44 @@ class ProfitLoss(APIView):
         return JsonResponse(data, safe=False)
 
 
+# class Balancesheet(APIView):
+#     def get(self, request, format=None):
+#         current_assets = Ledgers.objects.filter(
+#             groups=['bank OCC AC', 'cash in hand', 'deposits assets', 'loans n advances assets', 'stock in hand',
+#                     'sundry debitors'])
+#         loans_liability = Ledgers.objects.filter
+#         loans_liability = Ledgersserializers(loans_liability, many=True)
+#         curent_liabilities = Ledgers.objects.filter(groups=['duties n taxes', 'provisions', 'sundry creditors'])
+#         capital_account = Ledgers.objects.filter(groups=['reserve n surpulus'])
+#         data = {}
+#         x = loans_liability.data
+#         data['loans_liability']=loans_liability.data
+#         return Response(data)
+
 class Balancesheet(APIView):
     def get(self, request, format=None):
-        current_assets = Ledgers.objects.filter(
-            groups=['bank OCC AC', 'cash in hand', 'deposits assets', 'loans n advances assets', 'stock in hand',
-                    'sundry debitors'])
-        loans_liability = Ledgers.objects.filter(groups=['bank OD AC', 'secured loans', 'unsecured loans'])
-        curent_liabilities = Ledgers.objects.filter(groups=['duties n taxes', 'provisions', 'sundry creditors'])
-        capital_account = Ledgers.objects.filter(groups=['reserve n surpulus'])
+        company = request.META['HTTP_COMPANY']
+        ledgers = Ledgers.objects.filter(company_id=company)
+        current_assets = []
+        loans_liability = []
+        current_liability = []
+        capital_account = []
+        for i in ledgers:
+            if i.groups == 'bank OCC AC' or i.groups == 'cash in hand' or i.groups == 'deposits assets' or i.groups == 'loans n advances assets' or i.groups == 'stock in hand' or i.groups == 'sundry debitors':
+                serialized = Ledgersserializers(i)
+                current_assets.append(serialized.data)
+            if i.groups == 'bank OD AC' or i.groups == 'secured loans' or i.groups == 'unsecured loans':
+                serialized = Ledgersserializers(i)
+                loans_liability.append(serialized.data)
+            if i.groups == 'duties n taxes' or i.groups == 'provisions' or i.groups == 'sundry creditors':
+                serialized = Ledgersserializers(i)
+                current_liability.append(serialized.data)
+            if i.groups == 'reserve n surpulus':
+                serialized = Ledgersserializers(i)
+                capital_account.append(serialized.data)
         data = dict()
         data['current_assets'] = current_assets
         data['loans_liability'] = loans_liability
-        data['curent_liabilities'] = curent_liabilities
+        data['current_liability'] = current_liability
         data['capital_account'] = capital_account
-        return JsonResponse(data, safe=False)
+        return Response(data)
