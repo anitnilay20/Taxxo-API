@@ -47,7 +47,7 @@ choices = (
 
 class Ledgers(models.Model):
     company = models.ForeignKey(Company)
-    name = models.CharField(max_length=1000)
+    name = models.CharField(max_length=1000, unique=True)
     groups = models.CharField(max_length=1000, choices=choices)
     opening_balance = models.IntegerField(default=0)
     type = models.CharField(max_length=1000, choices=Ltype)
