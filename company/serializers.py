@@ -9,4 +9,4 @@ class Companyserializers(serializers.ModelSerializer):
             'id', 'alias_name', 'name', 'address', 'country', 'city', 'pin_code', 'telephone_number', 'email',
             'currency_symbols',
             'accounts_with_inventory', 'financial_year_from', 'books_beginning_from',
-            'show_amounts_in_millions', 'admin')
+            'show_amounts_in_millions', 'admin','cin_number','gst_number')
