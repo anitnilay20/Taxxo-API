@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -46,16 +45,10 @@ INSTALLED_APPS = [
     'Customer',
     'rest_framework',
     'company',
-    'balance',
-    'payment',
-    'contra',
     'ledgers',
-    'receipt',
     'corsheaders',
     'activity',
-    'income',
-    'expense',
-    'trialbalance',
+    'journal',
 ]
 
 MIDDLEWARE = [
@@ -91,7 +84,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Taxxo.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
@@ -101,7 +93,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -127,7 +118,6 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -152,5 +142,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
