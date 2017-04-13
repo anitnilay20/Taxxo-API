@@ -20,6 +20,9 @@ class LedgersList(APIView):
 
     def post(self, request, format=None):
         serializer = Ledgersserializers(data=request.data)
+        name = request.data['name']
+        if Ledgers.objects.filter(name=name).exists()
+            return Response(serializer.errors, status=status.HTTP_409_CONFLICT)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
