@@ -8,5 +8,5 @@ class Journal(models.Model):
     debit_amount = models.IntegerField()
     narration = models.CharField(max_length=1000)
     for_account = models.ForeignKey(Ledgers,related_name="journalforaccount")
-    to_Account = models.ForeignKey(Ledgers,related_name="journaltoaccount")
+    to_Account = models.ManyToManyField(Ledgers,related_name="journaltoaccount")
     date = models.DateField()
