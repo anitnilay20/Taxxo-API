@@ -53,6 +53,8 @@ class Ledgers(models.Model):
     type = models.CharField(max_length=1000, choices=Ltype)
     inventory = models.BooleanField(default=False)
     date = models.DateTimeField(default=timezone.now)
+    credit_amount = models.IntegerField(default=0)
+    debit_amount = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name

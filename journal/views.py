@@ -12,8 +12,7 @@ class JournalList(APIView):
     """
 
     def get(self, request, format=None):
-        admin = request.META['HTTP_ADMIN']
-        journal = Journal.objects.filter(admin=admin)
+        journal = Journal.objects.all()
         serializer = Journalserializers(journal, many=True)
         return Response(serializer.data)
 
