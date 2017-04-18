@@ -18,8 +18,8 @@ class Company(models.Model):
     books_beginning_from = models.DateField()
     show_amounts_in_millions = models.BooleanField()
     admin = models.ManyToManyField(Profile)
-    cin_number = models.IntegerField(blank=True)
-    gst_number = models.IntegerField(blank=True)
+    cin_number = models.IntegerField(blank=True, null=True)
+    gst_number = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.name
