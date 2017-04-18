@@ -9,10 +9,10 @@ class Journal(models.Model):
     company = models.ForeignKey(Company)
     credit_amount = models.IntegerField()
     debit_amount = models.IntegerField()
-    narration = models.CharField(max_length=1000)
+    narration = models.CharField(max_length=1000, blank=True)
     for_account = models.ForeignKey(Ledgers,related_name="journalforaccount")
     to_Account = models.ManyToManyField(Ledgers,related_name="journaltoaccount")
-    date = models.DateField(timezone.now)
+    date = models.DateField(default=timezone.now)
 
     def save(self, *args, **kwargs):
         if self.credit_amount > self.debit_amount:
