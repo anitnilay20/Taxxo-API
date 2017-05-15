@@ -3,12 +3,16 @@ from django.db import models
 from journal.models import Journal
 from Customer.models import Profile
 from django.utils import timezone
+from company.models import Company
+from ledgers.models import Ledgers
 
 
 class Purchase(models.Model):
-    party_name = models.CharField(max_length=1000)
+    party_name = models.ForeignKey(Ledgers)
     date = models.DateField(default=timezone.now)
-    journals = models.ManyToManyField(Journal,related_name='Journaljournals')
+    journals = models.ManyToManyField(Journal, related_name='Purchase_journal')
     payment_method = models.CharField(max_length=1000)
     total_amount = models.IntegerField()
+    narration = models.CharField(max_length=1000)
+    company = models.ForeignKey(Company)
     added_by = models.ForeignKey(Profile)
