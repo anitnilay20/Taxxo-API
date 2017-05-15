@@ -13,8 +13,8 @@ class PurchaseList(APIView):
 
     def get(self, request, format=None):
         company = request.Meta['HTTP_COMPANY']
-        company = Purchase.objects.filter(company=company)
-        serializer = Purchaseserializers(company, many=True)
+        purchase = Purchase.objects.filter(company=company)
+        serializer = Purchaseserializers(purchase, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
