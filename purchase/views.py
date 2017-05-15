@@ -12,9 +12,9 @@ class PurchaseList(APIView):
     """
 
     def get(self, request, format=None):
-        purchase = request.meta['HTTP_COMPANY']
-        purchase = Purchase.objects.all(purchase=purchase)
-        serializer = Purchaseserializers(purchase, many=True)
+        company = request.Meta['HTTP_COMPANY']
+        company = Purchase.objects.filter(company=company)
+        serializer = Purchaseserializers(company, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
