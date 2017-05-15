@@ -1,5 +1,6 @@
 from sales.models import Sales
 from sales.serializers import Salesserializers
+from journal.serializers import Journalserializers
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -12,17 +13,26 @@ class SalesList(APIView):
     """
 
     def get(self, request, format=None):
-        sales = request.meta['HTTP_COMPANY']
-        sales = Sales.objects.all(sales=sales)
+        company = request.META['HTTP_COMPANY']
+        sales = Sales.objects.filter(company=company)
         serializer = Salesserializers(sales, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = Salesserializers(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        journals = request.data['items']
+        journal_response = []
+        for journal in journals:
+            serializer = Journalserializers(data=journal)
+            if serializer.is_valid():
+                print serializer
+                serializer.save()
+                journal_response.append(serializer.data)
+            else:
+                journal_response.append(serializer.errors)
+        sales = request.data['sales']
+        serializer = Salesserializers(data=sales)
+        print serializer
+        return Response(status=status.HTTP_201_CREATED)
 
 
 class SalesDetail(APIView):

@@ -14,7 +14,7 @@ class Journal(models.Model):
     for_account = models.ForeignKey(Ledgers,related_name="journalforaccount")
     to_Account = models.ManyToManyField(Ledgers,related_name="journaltoaccount")
     date = models.DateField(default=timezone.now)
-    addaed_by = models.ForeignKey(Profile)
+    added_by = models.ForeignKey(Profile)
 
     def save(self, *args, **kwargs):
         if self.credit_amount > self.debit_amount:
