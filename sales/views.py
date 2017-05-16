@@ -19,20 +19,30 @@ class SalesList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
+        response = {}
         journals = request.data['items']
+        if not journals:
+            return Response("Items Not Found", status=status.HTTP_400_BAD_REQUEST)
         journal_response = []
         for journal in journals:
             serializer = Journalserializers(data=journal)
             if serializer.is_valid():
-                print serializer
                 serializer.save()
                 journal_response.append(serializer.data)
             else:
                 journal_response.append(serializer.errors)
+
         sales = request.data['sales']
+        sales_response = ''
         serializer = Salesserializers(data=sales)
-        print serializer
-        return Response(status=status.HTTP_201_CREATED)
+        serializer.initial_data['journals'] = list(map(lambda keys: keys['id'], journal_response))
+        if serializer.is_valid():
+            sales_response = serializer.data
+        else:
+            sales_response = serializer.errors
+        response['sales'] = sales_response
+        response['items'] = journal_response
+        return Response(response, status=status.HTTP_201_CREATED)
 
 
 class SalesDetail(APIView):
