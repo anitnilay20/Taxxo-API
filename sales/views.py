@@ -31,12 +31,14 @@ class SalesList(APIView):
                 journal_response.append(serializer.data)
             else:
                 journal_response.append(serializer.errors)
+                return Response(journal_response, status=status.HTTP_400_BAD_REQUEST)
 
         sales = request.data['sales']
         sales_response = ''
         serializer = Salesserializers(data=sales)
         serializer.initial_data['journals'] = list(map(lambda keys: keys['id'], journal_response))
         if serializer.is_valid():
+            serializer.save()
             sales_response = serializer.data
         else:
             sales_response = serializer.errors

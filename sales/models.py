@@ -16,3 +16,13 @@ class Sales(models.Model):
     narration = models.CharField(max_length=1000)
     company = models.ForeignKey(Company)
     added_by = models.ForeignKey(Profile)
+
+    def save(self, *args, **kwargs):
+        if self.payment_method == "credit":
+            self.party_name.debit_amount += self.total_amount
+            self.party_name.save()
+        else:
+            paymentLedger = Ledgers.objects.get(id=int(self.payment_method))
+            paymentLedger.debit_amount += self.total_amount
+            paymentLedger.save()
+        super(Sales, self).save()
