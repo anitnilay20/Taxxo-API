@@ -13,7 +13,7 @@ class LedgerhistoryList(APIView):
 
     def get(self, request, format=None):
         ledgers = request.META['HTTP_LEDGERS']
-        ledgerhistory = LedgerHistory.objects.filter(ledgers_id=ledgers)
+        ledgerhistory = LedgerHistory.objects.filter(name_id=ledgers)
         serializer = Ledgerhistoryserializers(ledgerhistory, many=True)
         return Response(serializer.data)
 
