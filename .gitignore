@@ -1,4 +1,3 @@
 *.pyc
 /.idea
 db.sqlite3
-journal/migrations/0008_merge_20170528_1340.py
