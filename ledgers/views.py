@@ -41,19 +41,19 @@ class LedgersDetail(APIView):
             raise Http404
 
     def get(self, request, id, format=None):
-        Ledgers = self.get_object(id)
-        serializer = Ledgersserializers(Ledgers)
+        ledgers = self.get_object(id)
+        serializer = Ledgersserializers(ledgers)
         return Response(serializer.data)
 
     def put(self, request, id, format=None):
-        Ledgers = self.get_object(id)
-        serializer = Ledgersserializers(Ledgers, data=request.data)
+        ledgers = self.get_object(id)
+        serializer = Ledgersserializers(ledgers, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, format=None):
-        Ledgers = self.get_object(id)
-        Ledgers.delete()
+        ledgers = self.get_object(id)
+        ledgers.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

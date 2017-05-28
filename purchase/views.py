@@ -37,19 +37,19 @@ class PurchaseDetail(APIView):
             raise Http404
 
     def get(self, request, id, format=None):
-        Purchase = self.get_object(id)
-        serializer = Purchaseserializers(Purchase)
+        purchase = self.get_object(id)
+        serializer = Purchaseserializers(purchase)
         return Response(serializer.data)
 
     def put(self, request, id, format=None):
-        Purchase = self.get_object(id)
-        serializer = Purchaseserializers(Purchase, data=request.data)
+        purchase = self.get_object(id)
+        serializer = Purchaseserializers(purchase, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, format=None):
-        Purchase = self.get_object(id)
-        Purchase.delete()
+        purchase = self.get_object(id)
+        purchase.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

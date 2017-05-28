@@ -37,19 +37,19 @@ class CompanyDetail(APIView):
             raise Http404
 
     def get(self, request, id, format=None):
-        Company = self.get_object(id)
-        serializer = Companyserializers(Company)
+        company = self.get_object(id)
+        serializer = Companyserializers(company)
         return Response(serializer.data)
 
     def put(self, request, id, format=None):
-        Company = self.get_object(id)
-        serializer = Companyserializers(Company, data=request.data)
+        company = self.get_object(id)
+        serializer = Companyserializers(company, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, format=None):
-        Company = self.get_object(id)
-        Company.delete()
+        company = self.get_object(id)
+        company.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

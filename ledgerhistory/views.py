@@ -37,19 +37,19 @@ class LedgerhistoryDetail(APIView):
             raise Http404
 
     def get(self, request, id, format=None):
-        LedgerHistory = self.get_object(id)
-        serializer = Ledgerhistoryserializers(LedgerHistory)
+        ledgerHistory = self.get_object(id)
+        serializer = Ledgerhistoryserializers(ledgerHistory)
         return Response(serializer.data)
 
     def put(self, request, id, format=None):
-        LedgerHistory = self.get_object(id)
-        serializer = Ledgerhistoryserializers(LedgerHistory, data=request.data)
+        ledgerHistory = self.get_object(id)
+        serializer = Ledgerhistoryserializers(ledgerHistory, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, format=None):
-        LedgerHistory = self.get_object(id)
-        LedgerHistory.delete()
+        ledgerHistory = self.get_object(id)
+        ledgerHistory.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

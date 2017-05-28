@@ -37,19 +37,19 @@ class JournalDetail(APIView):
             raise Http404
 
     def get(self, request, id, format=None):
-        Journal = self.get_object(id)
-        serializer = Journalserializers(Journal)
+        journal = self.get_object(id)
+        serializer = Journalserializers(journal)
         return Response(serializer.data)
 
     def put(self, request, id, format=None):
-        Journal = self.get_object(id)
-        serializer = Journalserializers(Journal, data=request.data)
+        journal = self.get_object(id)
+        serializer = Journalserializers(journal, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, format=None):
-        Journal = self.get_object(id)
-        Journal.delete()
+        journal = self.get_object(id)
+        journal.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
