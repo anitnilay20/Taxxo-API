@@ -2,11 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 from company.models import Company
-
-Ltype = (
-    ("Accounts", "Accounts"),
-    ("Inventory", "Inventory"),
-)
+from Customer.models import Profile
 
 choices = (
     ("bank OCC AC", "bank OCC AC"),
@@ -48,14 +44,14 @@ choices = (
 class Ledgers(models.Model):
     company = models.ForeignKey(Company)
     name = models.CharField(max_length=1000)
-    primary = models.CharField(max_length=100, default=" ")
-    groups = models.CharField(max_length=1000, choices=choices)
+    primary_group = models.CharField(max_length=100, default=" ")
+    secondry_group = models.CharField(max_length=1000, choices=choices)
+    tertiary_group = models.CharField(max_length=1000, default=" ")
     opening_balance = models.IntegerField(default=0)
-    type = models.CharField(max_length=1000, choices=Ltype)
-    inventory = models.BooleanField(default=False)
     date = models.DateTimeField(default=timezone.now)
     credit_amount = models.IntegerField(default=0)
     debit_amount = models.IntegerField(default=0)
+    added_by = models.ForeignKey(Profile)
 
     def __str__(self):
         return self.name

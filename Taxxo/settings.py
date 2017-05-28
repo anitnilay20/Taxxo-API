@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'journal',
     'sales',
     'purchase',
+    'product',
+    'ledgerhistory',
 ]
 
 MIDDLEWARE = [
