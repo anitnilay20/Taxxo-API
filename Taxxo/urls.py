@@ -9,7 +9,7 @@ urlpatterns = [
                   url(r'^ledgers/', include('ledgers.urls')),
                   url(r'^activity/', include('activity.urls')),
                   url(r'^journal/', include('journal.urls')),
-                  url(r'^admin/', include(admin.site.urls)),
+                  url(r'^admin/', include('admin.site.urls')),
                   url(r'^purchase/', include('purchase.urls')),
                   url(r'^sales/', include('sales.urls')),
                   url(r'^ledgerhistory/', include('ledgerhistory.urls')),
